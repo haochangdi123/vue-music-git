@@ -7,7 +7,7 @@
         <ul>
           <li class="list" v-for="(item,index) in list" :key="index">
             <div class="avatar">
-              <img :src="item.imgurl" alt="">
+              <img v-lazy="item.imgurl" alt="">
             </div>
             <div class="message">
               <h2 class="name">{{item.creator.name}}</h2>
@@ -17,6 +17,7 @@
         </ul>
       </div>
     </div>
+    <loading v-if="!list.length>0"></loading>
   </scroll>
 </template>
 
@@ -24,6 +25,7 @@
 import {getRecommendList, getSlideList} from '@/api/recommend.js';
 import scroll from '@/base/scroll/scroll';
 import SlideImg from './SlideImg';
+import loading from '@/base/loading/loading';
 const ERR_NO = 0;
 export default {
   data() {
@@ -34,7 +36,8 @@ export default {
   },
   components: {
     scroll,
-    SlideImg
+    SlideImg,
+    loading
   },
   methods: {
     _getRecommendList() {

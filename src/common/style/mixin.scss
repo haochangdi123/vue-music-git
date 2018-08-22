@@ -4,3 +4,14 @@
     background-image: url($url + '@3x.png')
   }
 }
+
+@mixin clearfix() {
+  display: inline-block;
+  &::after {
+    display: block;
+    content: "";
+    height: 0;
+    visibility: hidden;
+    clear: both;
+  }
+}
