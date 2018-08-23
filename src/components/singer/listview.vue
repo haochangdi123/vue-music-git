@@ -5,7 +5,7 @@
         <li class="arr" v-for="(itemes, index) of singerList" :key="index" ref="listGrop">
           <h3 class="title">{{itemes.title}}</h3>
           <ul>
-            <li class="singer" v-for="(item, index) of itemes.items" :key="index">
+            <li class="singer" v-for="(item, index) of itemes.items" :key="index" @click="select(item)">
               <div class="avatar">
                 <img v-lazy="item.avatar">
               </div>
@@ -131,6 +131,9 @@ export default {
       }
       this.scrollY = -this.listHeight[index];
       this.$refs.scr.scrollToElement(this.$refs.listGrop[index], 0);
+    },
+    select(item) {
+      this.$emit('selectFn', item);
     }
   },
   created() {

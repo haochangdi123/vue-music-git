@@ -1,6 +1,7 @@
 <template>
   <div class="singer">
-    <list-view :singerList="list" v-if="list.length>0"></list-view>
+    <list-view :singerList="list" v-if="list.length>0" @selectFn="selectFn"></list-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -25,7 +26,6 @@ export default {
       getSingerList().then((res) => {
         if (res.code === ERR_NO) {
           this.list = this._normalizeSinger(res.data.list);
-          console.log(this.list);
         }
       });
     },
@@ -74,6 +74,12 @@ export default {
         return a.title.charCodeAt(0) - b.title.charCodeAt(0);
       });
       return h.concat(r);
+    },
+    // 跳到歌手详情
+    selectFn(item) {
+      this.$router.push({
+        path: `/singer/${item.mid}`
+      });
     }
   },
   created() {
