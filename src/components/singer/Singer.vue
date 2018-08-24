@@ -9,6 +9,7 @@
 import {getSingerList} from '@/api/singer';
 import Singer from '@/common/js/singer';
 import listView from './listview';
+import {mapMutations} from 'vuex';
 const ERR_NO = 0;
 const HOT = '热门';
 const HOT_SINGER_LENGTH = 10;
@@ -77,10 +78,15 @@ export default {
     },
     // 跳到歌手详情
     selectFn(item) {
+      this.setSinger(item);
       this.$router.push({
         path: `/singer/${item.mid}`
       });
-    }
+    },
+    // 设置vuex
+    ...mapMutations({
+      setSinger: 'SET_SINGER'
+    })
   },
   created() {
     this._getSingerList();
